@@ -1,9 +1,8 @@
 {
-    "name": "laravel-admin-ext/adminlte2-widgets",
+    "name": "skybotgroup/adminlte2-widgets",
     "description": "description...",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
-    "homepage": "https://github.com/laravel-admin-ext/adminlte2-widgets",
     "license": "MIT",
     "authors": [
         {
@@ -20,13 +19,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Skybotgroup\\\\ALTE2Widgets\\": "src/"
+            "Skybotgroup\\ALTE2Widgets\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Skybotgroup\\\\ALTE2Widgets\\ALTE2WidgetsServiceProvider"
+                "Skybotgroup\\ALTE2Widgets\\ALTE2WidgetsServiceProvider"
             ]
         }
     }
