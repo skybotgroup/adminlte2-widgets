@@ -1,0 +1,33 @@
+{
+    "name": "laravel-admin-ext/adminlte2-widgets",
+    "description": "description...",
+    "type": "library",
+    "keywords": ["laravel-admin", "extension"],
+    "homepage": "https://github.com/laravel-admin-ext/adminlte2-widgets",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maksym Sliusarchuk",
+            "email": "max.slyusarhuk@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "encore/laravel-admin": "~1.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Skybotgroup\\\\ALTE2Widgets\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Skybotgroup\\\\ALTE2Widgets\\ALTE2WidgetsServiceProvider"
+            ]
+        }
+    }
+}
