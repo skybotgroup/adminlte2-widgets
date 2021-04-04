@@ -8,6 +8,9 @@ use Encore\Admin\Layout\Row;
 use Encore\Admin\Widgets\Box;
 use Illuminate\Routing\Controller;
 use Skybotgroup\ALTE2Widgets\Widgets\Accordion;
+use Skybotgroup\ALTE2Widgets\Widgets\Bloquote;
+use Skybotgroup\ALTE2Widgets\Widgets\Callout;
+use Skybotgroup\ALTE2Widgets\Widgets\Info;
 
 class ALTE2WidgetsController extends Controller
 {
@@ -56,15 +59,50 @@ class ALTE2WidgetsController extends Controller
                 ));
                 $row->column(6, new Box(
                     "Blockquote",
-                    ""
+                    new Bloquote(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        "Cool man"
+                    )
+                ));
+                $row->column(6, new Box(
+                    "Blockquote",
+                    (new Bloquote(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        "Cool man"
+                    ))->pullRight()
                 ));
                 $row->column(6, new Box(
                     "Callout",
-                    ""
+                    new Callout(
+                        "Test",
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        "warning"
+                    )
+                ));
+                $row->column(6, new Box(
+                    "Callout",
+                    new Callout(
+                        "Test",
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        "success"
+                    )
                 ));
                 $row->column(6, new Box(
                     "Info",
-                    ""
+                    (new Info(
+                        "Text",
+                        12
+                    ))->color(
+                        "success"
+                    )->icon(
+                        "users"
+                    )->progress(12, "12% of users")
                 ));
                 $row->column(6, new Box(
                     "Progress",

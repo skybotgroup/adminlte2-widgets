@@ -21,21 +21,36 @@ class Accordion extends Widget implements Renderable
 
     /**
      * @param string $title
-     * @param $content
+     * @param mixed $content
      * @param string $color
+     * Available colors :
+     * - primary
+     * - info
+     * - success
+     * - warning
+     * - danger
+     * - gray
+     * - navy
+     * - teal
+     * - purple
+     * - orange
+     * - maroon
+     * - black
      * @return $this
+     *
+     * Appends new collapsable box to accordion container
      */
     public function append(string $title, $content, $color = "primary"): Accordion
     {
         if ($content instanceof Renderable) {
-            $rows[] = [
+            $this->rows[] = [
                 'id' => Str::random(),
                 'title' => $title,
                 'content' => $content->render(),
                 'color' => $color,
             ];
         } else {
-            $rows[] = [
+            $this->rows[] = [
                 'id' => Str::random(),
                 'title' => $title,
                 'content' => (string)$content,
@@ -50,7 +65,11 @@ class Accordion extends Widget implements Renderable
      */
     public function render(): string
     {
-        $variables = array_merge(['id' => $this->id],['rows' => $this->rows], ['attributes' => $this->formatAttributes()]);
+        $variables = [
+            'id' => $this->id,
+            'rows' => $this->rows,
+            'attributes' => $this->formatAttributes()
+        ];
 
         return view($this->view, $variables)->render();
     }
