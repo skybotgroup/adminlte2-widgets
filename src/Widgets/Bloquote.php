@@ -2,10 +2,7 @@
 
 namespace Skybotgroup\ALTE2Widgets\Widgets;
 
-use Encore\Admin\Widgets\Widget;
-use Illuminate\Contracts\Support\Renderable;
-
-class Bloquote extends Widget implements Renderable
+class Bloquote extends Widget
 {
     protected $view = 'adminlte2-widgets::blockquote.blockquote';
 

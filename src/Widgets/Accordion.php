@@ -2,11 +2,9 @@
 
 namespace Skybotgroup\ALTE2Widgets\Widgets;
 
-use Encore\Admin\Widgets\Widget;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Str;
 
-class Accordion extends Widget implements Renderable
+class Accordion extends Widget
 {
     protected $view = 'adminlte2-widgets::accordion.accordion';
 

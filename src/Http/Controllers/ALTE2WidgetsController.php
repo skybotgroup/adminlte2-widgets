@@ -11,6 +11,7 @@ use Skybotgroup\ALTE2Widgets\Widgets\Accordion;
 use Skybotgroup\ALTE2Widgets\Widgets\Bloquote;
 use Skybotgroup\ALTE2Widgets\Widgets\Callout;
 use Skybotgroup\ALTE2Widgets\Widgets\Info;
+use Skybotgroup\ALTE2Widgets\Widgets\Progress;
 
 class ALTE2WidgetsController extends Controller
 {
@@ -106,7 +107,7 @@ class ALTE2WidgetsController extends Controller
                 ));
                 $row->column(6, new Box(
                     "Progress",
-                    ""
+                    new Progress(12, "Hello world", "blue")
                 ));
                 $row->column(6, new Box(
                     "Slider",

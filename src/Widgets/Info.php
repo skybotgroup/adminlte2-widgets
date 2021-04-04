@@ -2,11 +2,10 @@
 
 namespace Skybotgroup\ALTE2Widgets\Widgets;
 
-use Encore\Admin\Widgets\Widget;
-use Illuminate\Contracts\Support\Renderable;
-
-class Info extends Widget implements Renderable
+class Info extends Widget
 {
+    protected $view = 'adminlte2-widgets::info.info';
+
     /**
      * @var string
      */
@@ -80,16 +79,22 @@ class Info extends Widget implements Renderable
     public function progress(float $progress, string $description = ""): Info
     {
         $this->progress = [
-            'persent' => $progress,
+            'percent' => $progress,
             'description' => $description
         ];
         return $this;
     }
 
     /**
+     * @param array|string $classes
+     * @return $this
+     */
+
+
+    /**
      * @inheritDoc
      */
-    public function render()
+    public function render() : string
     {
         $variables = [
             'text' => $this->text,
