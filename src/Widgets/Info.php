@@ -42,6 +42,7 @@ class Info extends Widget
         $this->class("info-box");
         $this->text = $text;
         $this->number = $number;
+        $this->icon("users");
     }
 
     /**

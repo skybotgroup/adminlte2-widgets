@@ -3,6 +3,7 @@
 namespace Skybotgroup\ALTE2Widgets;
 
 use Illuminate\Support\ServiceProvider;
+use Encore\Admin\Admin;
 
 class ALTE2WidgetsServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,10 @@ class ALTE2WidgetsServiceProvider extends ServiceProvider
 
         $this->app->booted(function () {
             ALTE2Widgets::routes(__DIR__.'/../routes/web.php');
+        });
+        Admin::booting(function () {
+            Admin::js('vendor/laravel-admin-ext/adminlte2-widgets/chartjs/dist/Chart.bundle.min.js');
+            Admin::css('vendor/laravel-admin-ext/adminlte2-widgets/chartjs/dist/Chart.min.css');
         });
     }
 }
