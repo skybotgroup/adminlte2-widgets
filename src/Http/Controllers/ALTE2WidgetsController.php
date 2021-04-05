@@ -100,9 +100,10 @@ class ALTE2WidgetsController extends Controller
                         "Text",
                         12
                     ))->color(
-                        "success"
+                        "green"
                     )->icon(
-                        "users"
+                        "users",
+                        "aqua"
                     )->progress(12, "12% of users")
                 ));
                 $row->column(6, new Box(
@@ -110,16 +111,24 @@ class ALTE2WidgetsController extends Controller
                     new Progress(12, "Hello world", "blue")
                 ));
                 $row->column(6, new Box(
+                    "Progress",
+                    (new Progress(
+                        12,
+                        "Hello world 2",
+                        "blue"
+                    ))->active()->size("xs")
+                ));
+                $row->column(6, new Box(
                     "Slider",
-                    ""
+                    "Comming soon..."
                 ));
                 $row->column(6, new Box(
                     "SmallBox",
-                    ""
+                    "Comming soon..."
                 ));
                 $row->column(12, new Box(
                     "Timeline",
-                    ""
+                    "Comming soon..."
                 ));
             });
     }

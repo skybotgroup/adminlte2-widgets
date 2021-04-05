@@ -45,7 +45,7 @@ class Callout extends Widget
         $variables = [
             'title' => $this->title,
             'body' => $this->body,
-            'attributes' => $this->formatAttributes()
+            'attributes' => $this->formatClasses()
         ];
 
         return view($this->view, $variables)->render();

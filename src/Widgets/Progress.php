@@ -20,7 +20,15 @@ class Progress extends Widget
      */
     protected $color;
 
+    /**
+     * @var bool
+     */
+    protected $active = false;
 
+    /**
+     * @var bool
+     */
+    protected $vertical = false;
     /**
      * Progress constructor.
      * @param float $percent
@@ -41,6 +49,7 @@ class Progress extends Widget
     public function active(): Progress
     {
         $this->class("active");
+        $this->active = true;
         return $this;
     }
 
@@ -50,6 +59,7 @@ class Progress extends Widget
     public function vertical(): Progress
     {
         $this->class("vertical");
+        $this->vertical = true;
         return $this;
     }
 
@@ -71,7 +81,9 @@ class Progress extends Widget
                 "description" => $this->description,
             ],
             'color' => $this->color,
-            'attributes' => $this->formatAttributes()
+            'attributes' => $this->formatClasses(),
+            'active' => $this->active,
+            'vertical' => $this->vertical,
         ];
 
         return view($this->view, $variables)->render();

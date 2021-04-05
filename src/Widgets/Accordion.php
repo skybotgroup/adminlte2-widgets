@@ -66,7 +66,7 @@ class Accordion extends Widget
         $variables = [
             'id' => $this->id,
             'rows' => $this->rows,
-            'attributes' => $this->formatAttributes()
+            'attributes' => $this->formatClasses()
         ];
 
         return view($this->view, $variables)->render();

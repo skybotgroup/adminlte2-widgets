@@ -37,16 +37,11 @@ class Info extends Widget
      * @param float $progress
      * @param string $description
      */
-    public function __construct(string $text, float $number, string $color = "primary", string $icon = "info", string $iconBg = "", float $progress = -1, string $description = "")
+    public function __construct(string $text, float $number)
     {
         $this->class("info-box");
         $this->text = $text;
         $this->number = $number;
-        $this->color($color);
-        $this->icon($icon, $iconBg);
-        if ($progress >= 0){
-            $this->progress($progress, $description);
-        }
     }
 
     /**
@@ -102,7 +97,7 @@ class Info extends Widget
             'icon' => $this->icon,
             'iconBg' => $this->iconBg,
             'progress' => $this->progress,
-            'attributes' => $this->formatAttributes()
+            'attributes' => $this->formatClasses()
         ];
 
         return view($this->view, $variables)->render();

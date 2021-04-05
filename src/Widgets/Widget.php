@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 
 class Widget extends \Encore\Admin\Widgets\Widget implements Renderable
 {
+    public $classes = [];
+
     /**
      * @inheritDoc
      */
@@ -24,13 +26,16 @@ class Widget extends \Encore\Admin\Widgets\Widget implements Renderable
             return $this->class([$classes]);
         }
 
-        $this->attributes["class"] =
-            (
-            isset($this->attributes["class"])
-            && !empty($this->attributes["class"])
-                ? $this->attributes["class"]." "
-                : ""
-            ).implode(" ", $classes);
+        $this->classes = array_merge($classes, $this->classes);
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function formatClasses() : string
+    {
+        $classString = implode(" ", $this->classes);
+        return "class='$classString'";
     }
 }

@@ -37,9 +37,8 @@ class Bloquote extends Widget
         $variables = [
             'quote' => $this->quote,
             'cite' => $this->cite,
-            'attributes' => $this->formatAttributes()
+            'attributes' => $this->formatClasses(),
         ];
-
         return view($this->view, $variables)->render();
     }
 }

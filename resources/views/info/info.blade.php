@@ -1,4 +1,4 @@
-<div {{$attributes}}>
+<div {!! $attributes !!}>
     <span class="info-box-icon {{$iconBg?'bg-'.$iconBg:''}}">
         <i class="fa fa-{{$icon}}"></i>
     </span>

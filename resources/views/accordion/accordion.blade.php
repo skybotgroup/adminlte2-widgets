@@ -1,4 +1,4 @@
-<div class="box-group" id="#{{$id}}" {{$attributes}}>
+<div class="box-group" id="#{{$id}}" {!! $attributes !!}>
     @foreach($rows as $row)
         <div class="panel box box-{{$row['color']}}">
             <div class="box-header with-border">
