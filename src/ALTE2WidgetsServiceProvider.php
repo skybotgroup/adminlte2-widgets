@@ -33,6 +33,7 @@ class ALTE2WidgetsServiceProvider extends ServiceProvider
         Admin::booting(function () {
             Admin::js('vendor/laravel-admin-ext/adminlte2-widgets/chartjs/dist/Chart.bundle.min.js');
             Admin::css('vendor/laravel-admin-ext/adminlte2-widgets/chartjs/dist/Chart.min.css');
+            // Special for multiple chats and its events
         });
     }
 }
