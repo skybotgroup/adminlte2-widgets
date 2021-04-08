@@ -58,7 +58,7 @@ class Chart extends Widget
                     callbacks: {
                         label: function(tooltipItem, data) {
                             if ('label' in data.datasets[tooltipItem.datasetIndex]){
-                                return data.datasets[tooltipItem.datasetIndex].label + ': '+ tooltipItem.value;
+                                return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.value;
                             }else{
                                  return data.labels[tooltipItem.index];
                             }
