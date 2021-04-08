@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Skybotgroup\ALTE2Widgets\Widgets;
-
 
 use App\Bots;
 use Encore\Admin\Admin;
@@ -42,6 +40,9 @@ class Chart extends Widget
         $this->id = Str::random();
     }
 
+    /**
+     * @return string
+     */
     protected function script(){
         $all = [
             "type" => $this->type,
@@ -49,7 +50,6 @@ class Chart extends Widget
             "options" => $this->options,
         ];
         $script = "
-            let chart;
             $('#$this->id').ready(function() {
                 let all = ".json_encode($all).";
                 
@@ -60,66 +60,16 @@ class Chart extends Widget
                             if ('label' in data.datasets[tooltipItem.datasetIndex]){
                                 return data.datasets[tooltipItem.datasetIndex].label + ': '+ tooltipItem.value;
                             }else{
-                                console.log(data);
                                  return data.labels[tooltipItem.index];
                             }
                         }
                     }
                 };
-                chart = new Chart(document.getElementById('$this->id').getContext('2d'), all);
+                charts['$this->id'] = new Chart(document.getElementById('$this->id').getContext('2d'), all);
             });
         ";
         if ($this->ajax !== null){
-            $script.="
-                $('.$this->id-start_$this->id-end').ready(function() {
-                    let range = $('.$this->id-start_$this->id-end').val().split(' - ');
-
-                    console.log(range);
-                    
-                    $.ajax({
-                        url: '$this->ajax',
-                        data: {
-                            '_token' : LA.token,
-                            'start': range[0],
-                            'end': range[1]
-                        },
-                        dataType: 'json',
-                        success: function(data, textStatus, jqXHR){
-                            console.log(data);
-                            chart.data = data;
-                            chart.update();
-                        },
-                        fail: function(jqXHR, textStatus){
-                            console.log(textStatus);
-                        }
-                    });
-
-                    $('.$this->id-start_$this->id-end').on('apply.daterangepicker', function(ev, picker) {
-                        let range = $('.$this->id-start_$this->id-end').val().split(' - ');
-
-                        console.log(range);
-                        
-                        $.ajax({
-                            url: '$this->ajax',
-                            data: {
-                                '_token' : LA.token,
-                                'start': range[0],
-                                'end': range[1]
-                            },
-                            dataType: 'json',
-                            success: function(data, textStatus, jqXHR){
-                                console.log(data);
-                                chart.data = data;
-                                chart.update();
-                            },
-                            fail: function(jqXHR, textStatus){
-                                console.log(textStatus);
-                            }
-                        });
-                    });
-                });
-                
-            ";
+            $script.= $this->ajaxScript();
         }
         return $script;
     }
@@ -130,22 +80,23 @@ class Chart extends Widget
     public function render(): string
     {
         $form = new Form();
-
-        $form->daterangepicker(["$this->id-start", "$this->id-end"], 'Период')
-            ->ranges([
-                'Today'        => [Carbon::today()->toDateString(), Carbon::today()->toDateString()],
-                'Yesterday'    => [Carbon::yesterday()->toDateString(), Carbon::yesterday()->toDateString()],
-                'Last 7 Days'  => [Carbon::today()->subDays(6)->toDateString(), Carbon::today()->toDateString()],
-                'Last 14 Days' => [Carbon::today()->subDays(13)->toDateString(), Carbon::today()->toDateString()],
-                'Last 30 Days' => [Carbon::today()->subDays(29)->toDateString(), Carbon::today()->toDateString()],
-                'This Month'   => [Carbon::today()->startOfMonth()->toDateString(), Carbon::today()->endOfMonth()->toDateString()],
-                'Last Month'   => [Carbon::today()->subMonth()->firstOfMonth()->toDateString(), Carbon::today()->subMonth()->lastOfMonth()->toDateString()],
-            ])->defaultRange([
-                // last 30 days
-                Carbon::today()->subDays(29)->toDateString(),
-                Carbon::today()->toDateString()
-            ]);
-
+        if ($this->ajax !== null)
+        {
+            $form->daterangepicker(["$this->id-start", "$this->id-end"], 'Период')
+                ->ranges([
+                    'Today' => [Carbon::today()->toDateString(), Carbon::today()->toDateString()],
+                    'Yesterday' => [Carbon::yesterday()->toDateString(), Carbon::yesterday()->toDateString()],
+                    'Last 7 Days' => [Carbon::today()->subDays(6)->toDateString(), Carbon::today()->toDateString()],
+                    'Last 14 Days' => [Carbon::today()->subDays(13)->toDateString(), Carbon::today()->toDateString()],
+                    'Last 30 Days' => [Carbon::today()->subDays(29)->toDateString(), Carbon::today()->toDateString()],
+                    'This Month' => [Carbon::today()->startOfMonth()->toDateString(), Carbon::today()->endOfMonth()->toDateString()],
+                    'Last Month' => [Carbon::today()->subMonth()->firstOfMonth()->toDateString(), Carbon::today()->subMonth()->lastOfMonth()->toDateString()],
+                ])->defaultRange([
+                    // last 30 days
+                    Carbon::today()->subDays(29)->toDateString(),
+                    Carbon::today()->toDateString()
+                ]);
+        }
         Admin::script($this->script());
 
         $form->html("<canvas id='$this->id'></canvas>")->plain();
@@ -174,8 +125,61 @@ class Chart extends Widget
         return $this;
     }
 
+    /**
+     * @param $method
+     * @return $this
+     */
     public function ajax($method){
         $this->ajax = $method;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    protected function ajaxScript(){
+        return <<<SCRIPT
+            $('.$this->id-start_$this->id-end').ready(function() {
+                let range = $('.$this->id-start_$this->id-end').val().split(' - ');
+                
+                $.ajax({
+                    url: '$this->ajax',
+                    data: {
+                        '_token' : LA.token,
+                        'start': range[0],
+                        'end': range[1]
+                    },
+                    dataType: 'json',
+                    success: function(data, textStatus, jqXHR){
+                        charts['$this->id'].data = data;
+                        charts['$this->id'].update();
+                    },
+                    fail: function(jqXHR, textStatus){
+                        console.error(textStatus);
+                    }
+                });
+    
+                $('.$this->id-start_$this->id-end').on('apply.daterangepicker', function(ev, picker) {
+                    let range = $('.$this->id-start_$this->id-end').val().split(' - ');
+                    
+                    $.ajax({
+                        url: '$this->ajax',
+                        data: {
+                            '_token' : LA.token,
+                            'start': range[0],
+                            'end': range[1]
+                        },
+                        dataType: 'json',
+                        success: function(data, textStatus, jqXHR){
+                            charts['$this->id'].data = data;
+                            charts['$this->id'].update();
+                        },
+                        fail: function(jqXHR, textStatus){
+                            console.error(textStatus);
+                        }
+                    });
+                });
+            });   
+SCRIPT;
     }
 }
