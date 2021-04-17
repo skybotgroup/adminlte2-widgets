@@ -22,7 +22,7 @@ class Pie extends Chart
         $form = new Form();
         if ($this->ajax !== null)
         {
-            $form->daterangepicker("{$this->id}-date", 'Дата');
+            $form->daterangepicker("{$this->id}-date", __('Date'));
         }
         Admin::script($this->script());
 
