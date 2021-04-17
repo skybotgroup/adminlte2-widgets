@@ -2,8 +2,13 @@
 
 namespace Skybotgroup\ALTE2Widgets\Widgets;
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Str;
 
+/**
+ * Class Accordion
+ * @package Skybotgroup\ALTE2Widgets\Widgets
+ */
 class Accordion extends Widget
 {
     protected $view = 'adminlte2-widgets::accordion.accordion';

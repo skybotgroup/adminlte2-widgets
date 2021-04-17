@@ -1,34 +1,21 @@
 <?php
 
-
 namespace Skybotgroup\ALTE2Widgets\Widgets;
 
-
+/**
+ * Class Progress
+ * @package Skybotgroup\ALTE2Widgets\Widgets
+ */
 class Progress extends Widget
 {
     protected $view = "adminlte2-widgets::progress.progress";
-    /**
-     * @var float
-     */
+
     protected $percent;
-    /**
-     * @var string
-     */
     protected $description;
-    /**
-     * @var string
-     */
     protected $color;
-
-    /**
-     * @var bool
-     */
     protected $active = false;
-
-    /**
-     * @var bool
-     */
     protected $vertical = false;
+
     /**
      * Progress constructor.
      * @param float $percent
@@ -41,6 +28,7 @@ class Progress extends Widget
         $this->percent = $percent;
         $this->description = $description;
         $this->color = $color;
+        parent::__construct();
     }
 
     /**

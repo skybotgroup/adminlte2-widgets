@@ -2,34 +2,21 @@
 
 namespace Skybotgroup\ALTE2Widgets\Widgets;
 
-use App\Bots;
 use Encore\Admin\Admin;
 use Encore\Admin\Widgets\Form;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
+/**
+ * Class Chart
+ * @package Skybotgroup\ALTE2Widgets\Widgets
+ */
 class Chart extends Widget
 {
-    /**
-     * @var string
-     */
     protected $id;
-    /**
-     * @var string
-     */
     protected $type = "";
-    /**
-     * @var array
-     */
     protected $data = [];
-    /**
-     * @var array
-     */
     protected $options = [];
-
-    /**
-     * @var null
-     */
     protected $ajax = null;
 
     /**
@@ -38,12 +25,14 @@ class Chart extends Widget
     public function __construct()
     {
         $this->id = Str::random();
+        parent::__construct();
     }
 
     /**
      * @return string
      */
-    protected function script(){
+    protected function script(): string
+    {
         $all = [
             "type" => $this->type,
             "data" => $this->data,
@@ -82,15 +71,15 @@ class Chart extends Widget
         $form = new Form();
         if ($this->ajax !== null)
         {
-            $form->daterangepicker(["$this->id-start", "$this->id-end"], 'Период')
+            $form->daterangepicker(["$this->id-start", "$this->id-end"], __('Period'))
                 ->ranges([
-                    'Today' => [Carbon::today()->toDateString(), Carbon::today()->toDateString()],
-                    'Yesterday' => [Carbon::yesterday()->toDateString(), Carbon::yesterday()->toDateString()],
-                    'Last 7 Days' => [Carbon::today()->subDays(6)->toDateString(), Carbon::today()->toDateString()],
-                    'Last 14 Days' => [Carbon::today()->subDays(13)->toDateString(), Carbon::today()->toDateString()],
-                    'Last 30 Days' => [Carbon::today()->subDays(29)->toDateString(), Carbon::today()->toDateString()],
-                    'This Month' => [Carbon::today()->startOfMonth()->toDateString(), Carbon::today()->endOfMonth()->toDateString()],
-                    'Last Month' => [Carbon::today()->subMonth()->firstOfMonth()->toDateString(), Carbon::today()->subMonth()->lastOfMonth()->toDateString()],
+                    __('Today') => [Carbon::today()->toDateString(), Carbon::today()->toDateString()],
+                    __('Yesterday') => [Carbon::yesterday()->toDateString(), Carbon::yesterday()->toDateString()],
+                    __('Last 7 Days') => [Carbon::today()->subDays(6)->toDateString(), Carbon::today()->toDateString()],
+                    __('Last 14 Days') => [Carbon::today()->subDays(13)->toDateString(), Carbon::today()->toDateString()],
+                    __('Last 30 Days') => [Carbon::today()->subDays(29)->toDateString(), Carbon::today()->toDateString()],
+                    __('This Month') => [Carbon::today()->startOfMonth()->toDateString(), Carbon::today()->endOfMonth()->toDateString()],
+                    __('Last Month') => [Carbon::today()->subMonth()->firstOfMonth()->toDateString(), Carbon::today()->subMonth()->lastOfMonth()->toDateString()],
                 ])->defaultRange([
                     // last 30 days
                     Carbon::today()->subDays(29)->toDateString(),
@@ -111,7 +100,8 @@ class Chart extends Widget
      * @param $data
      * @return $this
      */
-    public function setData($data){
+    public function setData($data): Chart
+    {
         $this->data = array_merge($this->data, $data);
         return $this;
     }
@@ -120,7 +110,8 @@ class Chart extends Widget
      * @param $options
      * @return $this
      */
-    public function setOptions($options){
+    public function setOptions($options): Chart
+    {
         $this->options = array_merge($this->options, $options);
         return $this;
     }
@@ -129,7 +120,8 @@ class Chart extends Widget
      * @param $method
      * @return $this
      */
-    public function ajax($method){
+    public function ajax($method): Chart
+    {
         $this->ajax = $method;
         return $this;
     }
@@ -137,7 +129,8 @@ class Chart extends Widget
     /**
      * @return string
      */
-    protected function ajaxScript(){
+    protected function ajaxScript(): string
+    {
         return <<<SCRIPT
             $('.$this->id-start_$this->id-end').ready(function() {
                 let range = $('.$this->id-start_$this->id-end').val().split(' - ');

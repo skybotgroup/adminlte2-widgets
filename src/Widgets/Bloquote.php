@@ -2,6 +2,10 @@
 
 namespace Skybotgroup\ALTE2Widgets\Widgets;
 
+/**
+ * Class Bloquote
+ * @package Skybotgroup\ALTE2Widgets\Widgets
+ */
 class Bloquote extends Widget
 {
     protected $view = 'adminlte2-widgets::blockquote.blockquote';
@@ -18,6 +22,7 @@ class Bloquote extends Widget
     {
         $this->quote = $quote;
         $this->cite = $cite;
+        parent::__construct();
     }
 
     /**

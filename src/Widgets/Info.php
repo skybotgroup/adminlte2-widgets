@@ -2,40 +2,24 @@
 
 namespace Skybotgroup\ALTE2Widgets\Widgets;
 
+/**
+ * Class Info
+ * @package Skybotgroup\ALTE2Widgets\Widgets
+ */
 class Info extends Widget
 {
     protected $view = 'adminlte2-widgets::info.info';
 
-    /**
-     * @var string
-     */
     protected $text;
-    /**
-     * @var float
-     */
     protected $number;
-    /**
-     * @var string
-     */
     protected $icon;
-    /**
-     * @var mixed|string
-     */
     protected $iconBg;
-    /**
-     * @var array
-     */
     protected $progress = [];
 
     /**
      * Info constructor.
      * @param string $text
      * @param float $number
-     * @param string $color
-     * @param string $icon
-     * @param string $iconBg
-     * @param float $progress
-     * @param string $description
      */
     public function __construct(string $text, float $number)
     {
@@ -43,6 +27,7 @@ class Info extends Widget
         $this->text = $text;
         $this->number = $number;
         $this->icon("users");
+        parent::__construct();
     }
 
     /**
@@ -80,12 +65,6 @@ class Info extends Widget
         ];
         return $this;
     }
-
-    /**
-     * @param array|string $classes
-     * @return $this
-     */
-
 
     /**
      * @inheritDoc

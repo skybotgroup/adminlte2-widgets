@@ -4,6 +4,10 @@ namespace Skybotgroup\ALTE2Widgets\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
+/**
+ * Class Widget
+ * @package Skybotgroup\ALTE2Widgets\Widgets
+ */
 class Widget extends \Encore\Admin\Widgets\Widget implements Renderable
 {
     public $classes = [];

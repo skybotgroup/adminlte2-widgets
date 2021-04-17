@@ -2,6 +2,10 @@
 
 namespace Skybotgroup\ALTE2Widgets\Widgets;
 
+/**
+ * Class Callout
+ * @package Skybotgroup\ALTE2Widgets\Widgets
+ */
 class Callout extends Widget
 {
     protected $view = 'adminlte2-widgets::callout.callout';
@@ -14,19 +18,6 @@ class Callout extends Widget
      * @param $title
      * @param $body
      * @param string $color
-     * Available colors :
-     * - primary
-     * - info
-     * - success
-     * - warning
-     * - danger
-     * - gray
-     * - navy
-     * - teal
-     * - purple
-     * - orange
-     * - maroon
-     * - black
      */
     public function __construct($title, $body, string $color)
     {
@@ -35,6 +26,7 @@ class Callout extends Widget
 
         $this->title = $title;
         $this->body = $body;
+        parent::__construct();
     }
 
     /**
