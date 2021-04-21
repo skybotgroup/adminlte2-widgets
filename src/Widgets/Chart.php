@@ -167,6 +167,17 @@ class Chart extends Widget
                     dataType: 'json',
                     success: function(data, textStatus, jqXHR){
                         charts['$this->id'].data = data;
+                        charts['$this->id'].options.tooltips = {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    if ('label' in data.datasets[tooltipItem.datasetIndex]){
+                                        return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.value;
+                                    }else{
+                                         return data.labels[tooltipItem.index];
+                                    }
+                                }
+                            }
+                        };
                         charts['$this->id'].update();
                     },
                     fail: function(jqXHR, textStatus){
@@ -186,6 +197,17 @@ class Chart extends Widget
                         dataType: 'json',
                         success: function(data, textStatus, jqXHR){
                             charts['$this->id'].data = data;
+                            charts['$this->id'].options.tooltips = {
+                                callbacks: {
+                                    label: function(tooltipItem, data) {
+                                        if ('label' in data.datasets[tooltipItem.datasetIndex]){
+                                            return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.value;
+                                        }else{
+                                             return data.labels[tooltipItem.index];
+                                        }
+                                    }
+                                }
+                            };
                             charts['$this->id'].update();
                         },
                         fail: function(jqXHR, textStatus){
@@ -212,6 +234,17 @@ SCRIPT;
                     dataType: 'json',
                     success: function(data, textStatus, jqXHR){
                         charts['$this->id'].data = data;
+                        charts['$this->id'].options.tooltips = {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    if ('label' in data.datasets[tooltipItem.datasetIndex]){
+                                        return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.value;
+                                    }else{
+                                         return data.labels[tooltipItem.index];
+                                    }
+                                }
+                            }
+                        };
                         charts['$this->id'].update();
                     },
                     fail: function(jqXHR, textStatus){
@@ -232,6 +265,17 @@ SCRIPT;
                         dataType: 'json',
                         success: function(data, textStatus, jqXHR){
                             charts['$this->id'].data = data;
+                            charts['$this->id'].options.tooltips = {
+                                callbacks: {
+                                    label: function(tooltipItem, data) {
+                                        if ('label' in data.datasets[tooltipItem.datasetIndex]){
+                                            return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.value;
+                                        }else{
+                                             return data.labels[tooltipItem.index];
+                                        }
+                                    }
+                                }
+                            };
                             charts['$this->id'].update();
                         },
                         fail: function(jqXHR, textStatus){
