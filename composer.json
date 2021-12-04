@@ -18,9 +18,6 @@
         "skybotgroup/daterangepicker": ">=0.0.1",
         "ext-json": "*"
     },
-    "require-dev": {
-        "phpunit/phpunit": "~6.0"
-    },
     "autoload": {
         "psr-4": {
             "Skybotgroup\\ALTE2Widgets\\": "src/"

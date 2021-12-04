@@ -31,8 +31,7 @@ class ALTE2WidgetsServiceProvider extends ServiceProvider
             ALTE2Widgets::routes(__DIR__.'/../routes/web.php');
         });
         Admin::booting(function () {
-            Admin::js('vendor/laravel-admin-ext/adminlte2-widgets/chartjs/dist/Chart.bundle.min.js');
-            Admin::css('vendor/laravel-admin-ext/adminlte2-widgets/chartjs/dist/Chart.min.css');
+            Admin::js('vendor/laravel-admin-ext/adminlte2-widgets/chartjs/chart.min.js');
             // Special for multiple chats and its events
             Admin::script("var charts = [];");
         });
