@@ -46,13 +46,20 @@ class Chart extends Widget
                 let all = ".json_encode($all).";
                 
                 // Additional tooltip map method
-                all.options.tooltips = {
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            if ('label' in data.datasets[tooltipItem.datasetIndex]){
-                                return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.value;
-                            }else{
-                                 return data.labels[tooltipItem.index];
+                all.options = {
+                    plugins: {
+                        tooltip : {
+                            callbacks: {
+                                label: function(context) {     
+                                    let label = '';
+                                    if ('label' in context.dataset){
+                                        label = context.dataset.label.split(':')[0];                                
+                                    }else{
+                                        label = context.label.split(':')[0];
+                                    }
+                                    let value = context.formattedValue;
+                                    return label + ' : ' + value;
+                                }
                             }
                         }
                     }
