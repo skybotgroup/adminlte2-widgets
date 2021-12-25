@@ -43,23 +43,21 @@ class Chart extends Widget
         ];
         $script = "
             $('#$this->id').ready(function() {
-                let all = ".json_encode($all).";
+                let all = " . json_encode($all) . ";
                 
                 // Additional tooltip map method
-                all.options = {
-                    plugins: {
-                        tooltip : {
-                            callbacks: {
-                                label: function(context) {     
-                                    let label = '';
-                                    if ('label' in context.dataset){
-                                        label = context.dataset.label.split(':')[0];                                
-                                    }else{
-                                        label = context.label.split(':')[0];
-                                    }
-                                    let value = context.formattedValue;
-                                    return label + ' : ' + value;
+                all.options.plugins: {
+                    tooltip : {
+                        callbacks: {
+                            label: function(context) {     
+                                let label = '';
+                                if ('label' in context.dataset){
+                                    label = context.dataset.label.split(':')[0];                                
+                                }else{
+                                    label = context.label.split(':')[0];
                                 }
+                                let value = context.formattedValue;
+                                return label + ' : ' + value;
                             }
                         }
                     }
@@ -67,8 +65,8 @@ class Chart extends Widget
                 charts['$this->id'] = new Chart(document.getElementById('$this->id').getContext('2d'), all);
             });
         ";
-        if ($this->ajax !== null){
-            $script.= $this->ajaxScript();
+        if ($this->ajax !== null) {
+            $script .= $this->ajaxScript();
         }
         return $script;
     }
@@ -79,24 +77,23 @@ class Chart extends Widget
     public function render(): string
     {
         $form = new Form();
-        if ($this->ajax !== null)
-        {
-            if ($this->range){
+        if ($this->ajax !== null) {
+            if ($this->range) {
                 $form->daterangepicker(["$this->id-start", "$this->id-end"], __('Period'))
                     ->ranges($this->ranges ?? [
-                        __('Today') => [Carbon::today()->toDateString(), Carbon::today()->toDateString()],
-                        __('Yesterday') => [Carbon::yesterday()->toDateString(), Carbon::yesterday()->toDateString()],
-                        __('Last 7 Days') => [Carbon::today()->subDays(6)->toDateString(), Carbon::today()->toDateString()],
-                        __('Last 14 Days') => [Carbon::today()->subDays(13)->toDateString(), Carbon::today()->toDateString()],
-                        __('Last 30 Days') => [Carbon::today()->subDays(29)->toDateString(), Carbon::today()->toDateString()],
-                        __('This Month') => [Carbon::today()->startOfMonth()->toDateString(), Carbon::today()->endOfMonth()->toDateString()],
-                        __('Last Month') => [Carbon::today()->subMonth()->firstOfMonth()->toDateString(), Carbon::today()->subMonth()->lastOfMonth()->toDateString()],
-                    ])->defaultRange($this->defaultRange ?? [
-                        // last 30 days
-                        Carbon::today()->subDays(29)->toDateString(),
-                        Carbon::today()->toDateString()
-                    ]);
-            }else{
+                            __('Today') => [Carbon::today()->toDateString(), Carbon::today()->toDateString()],
+                            __('Yesterday') => [Carbon::yesterday()->toDateString(), Carbon::yesterday()->toDateString()],
+                            __('Last 7 Days') => [Carbon::today()->subDays(6)->toDateString(), Carbon::today()->toDateString()],
+                            __('Last 14 Days') => [Carbon::today()->subDays(13)->toDateString(), Carbon::today()->toDateString()],
+                            __('Last 30 Days') => [Carbon::today()->subDays(29)->toDateString(), Carbon::today()->toDateString()],
+                            __('This Month') => [Carbon::today()->startOfMonth()->toDateString(), Carbon::today()->endOfMonth()->toDateString()],
+                            __('Last Month') => [Carbon::today()->subMonth()->firstOfMonth()->toDateString(), Carbon::today()->subMonth()->lastOfMonth()->toDateString()],
+                        ])->defaultRange($this->defaultRange ?? [
+                            // last 30 days
+                            Carbon::today()->subDays(29)->toDateString(),
+                            Carbon::today()->toDateString()
+                        ]);
+            } else {
                 $form->daterangepicker("{$this->id}-date", __('Date'));
             }
 
@@ -149,9 +146,9 @@ class Chart extends Widget
 
     protected function ajaxScript(): string
     {
-        if ($this->range){
+        if ($this->range) {
             return $this->ajaxRangeScript();
-        }else{
+        } else {
             return $this->ajaxDateScript();
         }
     }
@@ -226,7 +223,8 @@ class Chart extends Widget
 SCRIPT;
     }
 
-    private function ajaxRangeScript(): string{
+    private function ajaxRangeScript(): string
+    {
         return <<<SCRIPT
             $('.$this->id-start_$this->id-end').ready(function() {
                 let range = $('.$this->id-start_$this->id-end').val().split(' - ');
