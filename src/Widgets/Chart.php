@@ -46,7 +46,7 @@ class Chart extends Widget
                 let all = " . json_encode($all) . ";
                 
                 // Additional tooltip map method
-                all.options.plugins: {
+                all.options.plugins = {
                     tooltip : {
                         callbacks: {
                             label: function(context) {     
